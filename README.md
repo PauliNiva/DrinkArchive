@@ -18,11 +18,11 @@ Järjestelmän ylläpitäjä voi lisätä järjestelmään reseptejä joko kokon
 
 Toimintoja:
 
-Kirjautuminen
-Reseptin haku
-Reseptien selailu
-Reseptin lisäys lomakkeella
-Reseptien sisäänluku tiedostosta
-Uuden reseptin ehdottaminen / ehdotuksen hyväksyminen
-Käyttäjätunnuksen luominen
-Käyttäjätietojen muutos ja tilin poisto
+* Kirjautuminen
+* Reseptin haku
+* Reseptien selailu
+* Reseptin lisäys lomakkeella
+* Reseptien sisäänluku tiedostosta
+* Uuden reseptin ehdottaminen / ehdotuksen hyväksyminen
+* Käyttäjätunnuksen luominen
+* Käyttäjätietojen muutos ja tilin poisto
