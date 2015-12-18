@@ -3,8 +3,8 @@ A collection of cocktail recipes.
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni] http://pniva.users.cs.helsinki.fi/DrinkArchive/
-* [Linkki dokumentaatiooni](https://www.github.com)
+* [Linkki sovellukseeni] (http://pniva.users.cs.helsinki.fi/DrinkArchive/)
+* [Linkki dokumentaatiooni](https://github.com/PauliNiva/DrinkArchive/blob/master/doc/dokumentaatio.pdf)
 
 ## Työn aihe
 
