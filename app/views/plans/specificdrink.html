@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Old Fashioned</h1>
+  <h3>Ingredients</h3>
+  <ul>
+  <li>4.5 cl Whisky</li>
+  <li>2 dashes Angostura</li>
+  <li>1 sugar cube</li>
+  <li>2 dashes plain water</li>
+</ul>
+  <h3>Preparation</h3>
+  <p>Place sugar cube in old fashioned glass and saturate with bitters, add a dash of plain water Muddle until dissolved. Fill the glass with ice cubes and add whiskey. Garnish with orange slice, and a cocktail cherry.</p>
+  <button class="btn btn-danger">Delete drink</button>
+  <button class="btn btn-primary" onClick= href="{{base_path}}/editpage">Edit drink</button>
+{% endblock %}
