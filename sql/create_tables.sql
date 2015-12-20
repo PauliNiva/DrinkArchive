@@ -8,17 +8,17 @@ last_login TIMESTAMPTZ
 
 CREATE TABLE DrinkType (
 drink_type_id SERIAL PRIMARY KEY,
-drink_type_name VARCHAR(32) NOT NULL
+drink_type_name VARCHAR(32) UNIQUE NOT NULL
 );
 
 CREATE TABLE Ingredients (
 ingredient_id SERIAL PRIMARY KEY,
-ingredient_name VARCHAR(32) NOT NULL
+ingredient_name VARCHAR(32) UNIQUE NOT NULL
 );
 
 CREATE TABLE Drinks (
 drink_id SERIAL PRIMARY KEY,
-drink_name VARCHAR(32) NOT NULL,
+drink_name VARCHAR(32) UNIQUE NOT NULL,
 instructions VARCHAR(2048),
 date TIMESTAMPTZ NOT NULL,
 adder_id INTEGER REFERENCES Users(user_id)
