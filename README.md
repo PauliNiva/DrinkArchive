@@ -6,6 +6,14 @@ Yleisiä linkkejä:
 * [Linkki sovellukseeni] (http://pniva.users.cs.helsinki.fi/DrinkArchive/)
 * [Linkki dokumentaatiooni](https://github.com/PauliNiva/DrinkArchive/blob/master/doc/dokumentaatio.pdf)
 
+Käyttöliittymän suunniteltuihin ulkoasuihin linkkejä:
+
+* http://pniva.users.cs.helsinki.fi/DrinkArchive/ (etusivu)
+* http://pniva.users.cs.helsinki.fi/DrinkArchive/drinklist (juomien listaus)
+* http://pniva.users.cs.helsinki.fi/DrinkArchive/specificdrink (yksittäisen juoman tarkastelu)
+* http://pniva.users.cs.helsinki.fi/DrinkArchive/editpage (juoman muokkaus sivu)
+* http://pniva.users.cs.helsinki.fi/DrinkArchive/favorites (suosikkijuomien listaussivu)
+
 ## Työn aihe
 
 WWW-sivulla toimiva drinkinhakulomake. Drinkkireseptit kuvaavat cocktaileja ja muita juomasekoituksia. Reseptejä voi hakea juoman nimeen liittyvällä hakusanalla tai jonkin tietyn osa-aineen mukaan. Resepteistä voi pyytää myös listan aakkosjärjestyksen, ainesosan tai juomalajin (alkudrinkki, cocktail, shotti,…) mukaan.
@@ -22,7 +30,5 @@ Toimintoja:
 * Reseptin haku
 * Reseptien selailu
 * Reseptin lisäys lomakkeella
-* Reseptien sisäänluku tiedostosta
-* Uuden reseptin ehdottaminen / ehdotuksen hyväksyminen
 * Käyttäjätunnuksen luominen
 * Käyttäjätietojen muutos ja tilin poisto
