@@ -37,6 +37,18 @@ class Drink extends BaseModel {
 		}
 	}
 
+	public function save() {
+		$query = DB::connection()->prepare('INSERT INTO
+			Drinks(drink_name, instructions, date, adder_id, drink_type) VALUES
+			(?, ?, ?, ?, ?) RETURNING drink_id');
+		$executionSuccess = $query->execute(array($this->getDrink_name(), $this->getInstructions(),
+			'NOW()', $this->getAdder_id(), $this->getDrink_type()));
+		if($executionSuccess) {
+			$this->drink_id = $query->fetch();
+		}
+		return $executionSuccess;
+	}
+ 
 	private static function fillAttributesFromQuery($row) {
 		$drink = new Drink();
 
