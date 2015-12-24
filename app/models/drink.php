@@ -13,6 +13,43 @@ class Drink extends BaseModel {
 		$this->drink_type = $drink_type;
 	}
 
+	public static function findAll() {
+		$query = DB::connection()->prepare('SELECT * FROM Drinks');
+		$query->execute();
+		$rows = $query->fetchAll();
+		$drinks = array();
+
+		foreach ($rows as $row) {
+			$drinks[] = fillAttributesFromQuery($row);
+		}
+		return $drinks;
+	}
+
+	public static function findOne($drink_id) {
+		$query = DB::connection()->prepare('SELECT * FROM Drinks WHERE drink_id = ?');
+		$query->execute(array($drink_id));
+		$row = $query->fetch();
+
+		if($row) {
+			return fillAttributesFromQuery($row);
+		} else {
+			return null;
+		}
+	}
+
+	private static function fillAttributesFromQuery($row) {
+		$drink = new Drink();
+
+		$drink->setDrink_id($row->drink_id);
+		$drink->setDrink_name($row->drink_name);
+		$drink->setInstructions($row->instructions);
+		$drink->setDate($row->date);
+		$drink->setAdder_id($row->adder_id);
+		$drink->setDrink_type($row->drink_type);
+
+		return $drink;
+	}
+
 	public function getDrink_id() {
 		return $this->drink_id;
 	}
