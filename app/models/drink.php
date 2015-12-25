@@ -26,12 +26,12 @@ class Drink {
 	}
 
 	public static function findOne($drink_id) {
-		$query = DB::connection()->prepare('SELECT * FROM Drinks WHERE drink_id = ?');
+		$query = DB::connection()->prepare('SELECT * FROM Drinks WHERE drink_id = :drink_id');
 		$query->execute(array($drink_id));
-		$row = $query->fetch();
+		$row = $query->fetch(PDO::FETCH_OBJ);
 
 		if($row) {
-			return fillAttributesFromQuery($row);
+			return Drink::fillAttributesFromQuery($row);
 		} else {
 			return null;
 		}
@@ -60,6 +60,13 @@ class Drink {
 		$drink->setDrink_type($row->drink_type);
 
 		return $drink;
+	}
+
+	public static function countDrinks() {
+		$query = DB::connection()->prepare('SELECT count(*) FROM Drinks');
+		$query->execute();
+		$count = $query->fetchColumn();
+		return $count;
 	}
 
 	public function getDrink_id() {

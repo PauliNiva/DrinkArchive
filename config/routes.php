@@ -28,3 +28,6 @@
     DrinkController::index();
   });
 
+  $routes->get('/drink/:id', function($id) {
+    DrinkController::show($id);
+  });
