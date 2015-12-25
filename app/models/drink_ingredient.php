@@ -2,8 +2,7 @@
 
 class DrinkIngredient {
 
-	private $amount, $unit, $ingredient_id, $drink_id;
-	public $name;
+	private $amount, $unit, $ingredient_id, $drink_id, $name;
 
 	public function _construct($amount, $unit, $ingredient_id, $drink_id, $name) {
 		$this->amount = $amount;

@@ -4,7 +4,7 @@
   <h3>Ingredients</h3>
   {% for drink_ingredient in drink_ingredients %}
   <ul>
-  <li>{{drink_ingredient.amount}} {{drink_ingredient.unit}} {{drink_ingredient.name}}</li>
+  <li>{{drink_ingredient.amount}} {{drink_ingredient.unit}} {{drink_ingredient.getIngredientName()}}</li>
 </ul>
 {% endfor %}
   <h3>Preparation</h3>
