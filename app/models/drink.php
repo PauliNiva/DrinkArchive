@@ -1,10 +1,10 @@
 <?php
 
-class Drink extends BaseModel {
+class Drink {
 
 	private $drink_id, $drink_name, $instructions, $date, $adder_id, $drink_type;
 
-	public function __construct($attributes) {
+	public function _construct($drink_id, $drink_name, $instructions, $date, $adder_id, $drink_type) {
 		$this->drink_id = $drink_id;
 		$this->drink_name = $drink_name;
 		$this->instructions = $instructions;
@@ -16,11 +16,11 @@ class Drink extends BaseModel {
 	public static function findAll() {
 		$query = DB::connection()->prepare('SELECT * FROM Drinks');
 		$query->execute();
-		$rows = $query->fetchAll();
+		$rows = $query->fetchAll(PDO::FETCH_OBJ);
 		$drinks = array();
 
 		foreach ($rows as $row) {
-			$drinks[] = fillAttributesFromQuery($row);
+			$drinks[] = Drink::fillAttributesFromQuery($row);
 		}
 		return $drinks;
 	}
@@ -49,7 +49,7 @@ class Drink extends BaseModel {
 		return $executionSuccess;
 	}
  
-	private static function fillAttributesFromQuery($row) {
+	public function fillAttributesFromQuery($row) {
 		$drink = new Drink();
 
 		$drink->setDrink_id($row->drink_id);
@@ -82,7 +82,7 @@ class Drink extends BaseModel {
 		return $this->instructions;
 	}
 
-	public function setInstructions() {
+	public function setInstructions($instructions) {
 		$this->instructions = $instructions;
 	}
 

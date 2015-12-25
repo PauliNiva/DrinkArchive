@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>List of drinks in the archive</h1>
+  <p>Archive currently contains n recipes</p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Added By</th>
+        <th>When Added</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Listataan pelit tähän -->
+      {% for drink in drinks %}
+      <tr>
+        <td><a href="{{base_path}}/drink/{{drink.drink_id}}">{{drink.drink_name}}</a></td>
+        <td>{{drink.adder_id}}</td>
+        <td>{{date}}</td>
+        <th><a class="btn btn-default btn-sm" href="#">Add as Favorite</a></th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

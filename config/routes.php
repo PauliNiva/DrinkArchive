@@ -24,4 +24,7 @@
     HelloWorldController::favorites();
   });
 
+  $routes->get('/drink', function() {
+    DrinkController::index();
+  });
 
