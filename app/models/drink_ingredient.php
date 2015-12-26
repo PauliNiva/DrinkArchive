@@ -33,6 +33,13 @@ class DrinkIngredient {
 		return $ingredients;
 	}
 
+	public function save() {
+		$query = DB::connection()->prepare('INSERT INTO DrinkIngredient(amount, unit, ingredient_id, drink_id)
+			VALUES(:amount, :unit, :ingredient_id, :drink_id)');
+        $query->execute(array($this->getAmount(), $this->getUnit(),
+        	$this->getIngredient_id(), $this->getDrink_id()));        
+    }
+
 	public function getIngredientName() {
 		return $this->name;
 	}

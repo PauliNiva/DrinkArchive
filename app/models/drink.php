@@ -2,13 +2,13 @@
 
 class Drink {
 
-	private $drink_id, $drink_name, $instructions, $date, $adder_id, $drink_type;
+	private $drink_id, $drink_name, $instructions, $time_added, $adder_id, $drink_type;
 
-	public function _construct($drink_id, $drink_name, $instructions, $date, $adder_id, $drink_type) {
+	public function _construct($drink_id, $drink_name, $instructions, $time_added, $adder_id, $drink_type) {
 		$this->drink_id = $drink_id;
 		$this->drink_name = $drink_name;
 		$this->instructions = $instructions;
-		$this->date = $date;
+		$this->time_added = $time_added;
 		$this->adder_id = $adder_id;
 		$this->drink_type = $drink_type;
 	}
@@ -39,14 +39,12 @@ class Drink {
 
 	public function save() {
 		$query = DB::connection()->prepare('INSERT INTO
-			Drinks(drink_name, instructions, date, adder_id, drink_type) VALUES
-			(?, ?, ?, ?, ?) RETURNING drink_id');
-		$executionSuccess = $query->execute(array($this->getDrink_name(), $this->getInstructions(),
+			Drinks(drink_name, instructions, time_added, adder_id, drink_type) VALUES
+			(:drink_name, :instructions, :time_added, :adder_id, :drink_type) RETURNING drink_id');
+		$query->execute(array($this->getDrink_name(), $this->getInstructions(),
 			'NOW()', $this->getAdder_id(), $this->getDrink_type()));
-		if($executionSuccess) {
-			$this->drink_id = $query->fetch();
-		}
-		return $executionSuccess;
+		$row = $query->fetch();
+		$this->drink_id = $row['drink_id'];
 	}
  
 	public function fillAttributesFromQuery($row) {
@@ -55,7 +53,7 @@ class Drink {
 		$drink->setDrink_id($row->drink_id);
 		$drink->setDrink_name($row->drink_name);
 		$drink->setInstructions($row->instructions);
-		$drink->setDate($row->date);
+		$drink->setTime_added($row->time_added);
 		$drink->setAdder_id($row->adder_id);
 		$drink->setDrink_type($row->drink_type);
 
@@ -93,12 +91,12 @@ class Drink {
 		$this->instructions = $instructions;
 	}
 
-	public function getDate() {
-		return $this->date;
+	public function getTime_added() {
+		return $this->time_added;
 	}
 
-	public function setDate($date) {
-		$this->date = $date;
+	public function setTime_added($time_added) {
+		$this->time_added = $time_added;
 	}
 
 	public function getAdder_id() {

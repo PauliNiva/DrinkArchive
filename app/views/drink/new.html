@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Add drink to archive</h1>
+    <p>Fill the following fields carefully to add a new drink.</p>
+    <form role="form" action"{{base_path}}/drink" method="POST">
+        <div class="form-group">
+            <div class="col-xs-4">
+                <label for="inputName">Name</label>
+                <input type="text" class="form-control" name="drink_name" placeholder="Name of the drink">
+                <br>
+                <label>Type of drink</label>
+                <select name="drink_type" class="form-control">
+                  {% for drink_type in drink_types%}
+                    <option value="{{drink_type.drink_type_id}}">{{drink_type.drink_type_name}}</option>
+                  {% endfor %}
+                </select>
+            </div>
+            <div class="col-xs-10">
+                <br>
+                <label>Ingredients</label>
+                <div id="fields" class="form-inline">
+                    <input class="form-control"  type='text' placeholder="Amount" name='amounts[]'/> 
+                    <input class="form-control" type='text' placeholder="Unit (in cl, dl, etc...)" name='units[]'/> 
+                    <input class="form-control" type="text"  placeholder="Ingredient" name="ingredients[]"/>
+                </div>
+
+                <input class="btn btn-warning" type="button" value="Add new ingredient" onClick="addField('fields');"/> 
+                
+            </div>
+
+            <div class="col-xs-6">
+                <br>
+                <label for="inputInstructions">Preparation</label>
+                <textarea class="form-control" rows="3" name="instructions"></textarea>
+                <br>
+                <button type="submit" class="btn btn-primary">Add drink</button>        
+                <a href="index.html"><button type="button" class="btn btn-default">Cancel</button></a>
+                <br>
+            </div>
+        </div>    
+
+    </form>
+
+    <script>
+        var counter = 1;
+        var max = 10;
+        function addField(divName) {
+            if (counter == max) {
+                alert("Cannot add more than " + counter + " ingredients");
+            }
+            else {
+                var ingredientdiv = document.createElement('div');
+                var choicediv = document.createElement('div');
+                ingredientdiv.innerHTML = "<input type='text' class='form-control' placeholder='Amount' name='amounts[]'> <input type='text' class='form-control' placeholder='Unit (in cl, dl, etc...)' name='units[]'> <input type='text' class='form-control' placeholder='Ingredient' name='ingredients[]'>";
+                document.getElementById(divName).appendChild(ingredientdiv);
+                counter++;
+            }
+        }
+    </script>
+{% endblock %}

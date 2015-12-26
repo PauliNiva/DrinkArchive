@@ -31,3 +31,11 @@
   $routes->get('/drink/:id', function($id) {
     DrinkController::show($id);
   });
+
+  $routes->get('/addDrink', function() {
+    DrinkController::addNew();
+  });
+
+  $routes->post('/addDrink', function() {
+    DrinkController::store();
+  });

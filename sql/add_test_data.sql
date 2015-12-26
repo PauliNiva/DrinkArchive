@@ -14,10 +14,10 @@ INSERT INTO Ingredients(ingredient_name) VALUES('Sugar cube');
 
 INSERT INTO Ingredients(ingredient_name) VALUES('Plain water');
 
-INSERT INTO Drinks(drink_name, instructions, date, adder_id, drink_type) VALUES
+INSERT INTO Drinks(drink_name, instructions, time_added, adder_id, drink_type) VALUES
 	('Old Fashioned', 'Place sugar cube in old fashioned glass and saturate with bitters,
 		 add a dash of plain water Muddle until dissolved. Fill the glass with ice cubes
-		 and add whiskey. Garnish with orange slice, and a cocktail cherry.', now(),
+		 and add whiskey. Garnish with orange slice, and a cocktail cherry.', 'NOW()',
 		 (SELECT user_id FROM Users WHERE username = 'Admin'),
 		 (SELECT drink_type_id FROM DrinkType WHERE drink_type_name = 'Cocktail'));
 
