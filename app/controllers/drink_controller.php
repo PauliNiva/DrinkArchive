@@ -16,7 +16,7 @@ class DrinkController extends BaseController {
 	public static function show($id) {
 		$drink = Drink::findOne($id);
 		$drink_ingredients = DrinkIngredient::listDrinkIngredients($id);
-		View::make('drink/aaa.html', array('drink' => $drink, 'drink_ingredients' => $drink_ingredients));
+		View::make('drink/specific_drink.html', array('drink' => $drink, 'drink_ingredients' => $drink_ingredients));
 	}
 
 	public static function addNew() {
