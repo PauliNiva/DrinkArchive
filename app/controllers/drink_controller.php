@@ -4,11 +4,13 @@ require 'app/models/drink.php';
 require 'app/models/drink_ingredient.php';
 require 'app/models/drink_type.php';
 require 'app/models/ingredient.php';
+require 'lib/utilities.php';
 
 class DrinkController extends BaseController {
 
 	public static function index() {
-		$count = Drink::countDrinks();
+		$count = new Utilities();
+		$count->countDrinks();
 		$drinks = Drink::findAll();
 		View::make('drink/index.html', array('drinks' => $drinks, 'count' => $count));
 	}
