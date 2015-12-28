@@ -39,3 +39,7 @@
   $routes->post('/addDrink', function() {
     DrinkController::store();
   });
+
+  $routes->post('/drink/:id/destroy', function($id){
+  DrinkController::destroy($id);
+  });

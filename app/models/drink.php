@@ -58,7 +58,7 @@ class Drink {
 	}
 
 	public function destroy() {
-		$query = DB::connection()->prepare('DELETE FROM Drinks WHERE drink_id = :id');
+		$query = DB::connection()->prepare('DELETE FROM Drinks WHERE drink_id = ?');
 		$query->execute(array($this->drink_id));
 	}
  

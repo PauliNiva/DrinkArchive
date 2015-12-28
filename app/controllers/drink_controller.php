@@ -26,6 +26,12 @@ class DrinkController extends BaseController {
 		View::make('drink/new.html', array('drink_types' => $drink_types));
 	}
 
+	public static function destroy($id) {
+		$drink = Drink::findOne($id);
+		$drink->destroy();
+		Redirect::to('/drink', array('message' => 'Drink has been deleted.'));
+	}
+
 	public static function store() {
 		$newDrink = new Drink();
 		$name = $_POST['drink_name'];
