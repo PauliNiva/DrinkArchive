@@ -75,13 +75,6 @@ class Drink {
 		return $drink;
 	}
 
-	public function countDrinks() {
-		$query = DB::connection()->prepare('SELECT COUNT(*) FROM Drinks');
-		$query->execute();
-		$count = $query->fetchColumn();
-		return $count;
-	}
-
 	public function getDrink_id() {
 		return $this->drink_id;
 	}
