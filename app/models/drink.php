@@ -48,13 +48,10 @@ class Drink {
 	}
 
 	public function update() {
-		$query = DB::connection()->prepare('UPDATE
-			Drinks(drink_name, instructions, time_added, adder_id, drink_type) VALUES
-			(:drink_name, :instructions, :time_added, :adder_id, :drink_type) RETURNING drink_id');
-		$query->execute(array($this->getDrink_name(), $this->getInstructions(),
-			'NOW()', $this->getAdder_id(), $this->getDrink_type()));
-		$row = $query->fetch();
-		$this->drink_id = $row['drink_id'];
+		$query = DB::connection()->prepare('UPDATE Drinks SET
+			drink_name = ?, instructions = ?, drink_type = ? WHERE drink_id = ?');
+		$query->execute(array($this->drink_name, $this->instructions,
+			$this->drink_type, $this->drink_id));
 	}
 
 	public function destroy() {

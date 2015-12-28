@@ -32,6 +32,28 @@ class DrinkController extends BaseController {
 		Redirect::to('/drink', array('message' => 'Drink has been deleted.'));
 	}
 
+	public static function edit($id) {
+		$drink = Drink::findOne($id);
+		$drink_types = DrinkType::listDrinkTypes();
+		$drink_ingredients = DrinkIngredient::listDrinkIngredients($id);
+		View::make('drink/edit.html', array('attributes' => $drink, 'drink_types' => $drink_types, 'drink_ingredients' => $drink_ingredients));
+	}
+
+	public static function update($id) {
+		$modifiedDrink = Drink::findOne($id);
+		$name = $_POST['drink_name'];
+		$ingredients = $_POST['ingredients'];
+		$amounts = $_POST['amounts'];
+    	$units = $_POST['units'];
+
+    	$modifiedDrink->setDrink_name($name);
+    	$modifiedDrink->setDrink_type($_POST['drink_type']);
+    	$modifiedDrink->setInstructions($_POST['instructions']);
+    	$modifiedDrink->update();
+
+    	Redirect::to('/drink/' . $modifiedDrink->getDrink_id(), array('message' => 'Drink has been modified.'));
+  	}
+
 	public static function store() {
 		$newDrink = new Drink();
 		$name = $_POST['drink_name'];

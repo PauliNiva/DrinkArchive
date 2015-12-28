@@ -43,3 +43,11 @@
   $routes->post('/drink/:id/destroy', function($id){
   DrinkController::destroy($id);
   });
+
+  $routes->get('/drink/:id/edit', function($id){
+  DrinkController::edit($id);
+  });
+
+  $routes->post('/drink/:id/edit', function($id){
+  DrinkController::update($id);
+  });
