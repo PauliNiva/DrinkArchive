@@ -46,6 +46,21 @@ class Drink {
 		$row = $query->fetch();
 		$this->drink_id = $row['drink_id'];
 	}
+
+	public function update() {
+		$query = DB::connection()->prepare('UPDATE
+			Drinks(drink_name, instructions, time_added, adder_id, drink_type) VALUES
+			(:drink_name, :instructions, :time_added, :adder_id, :drink_type) RETURNING drink_id');
+		$query->execute(array($this->getDrink_name(), $this->getInstructions(),
+			'NOW()', $this->getAdder_id(), $this->getDrink_type()));
+		$row = $query->fetch();
+		$this->drink_id = $row['drink_id'];
+	}
+
+	public function destroy() {
+		$query = DB::connection()->prepare('DELETE FROM Drinks WHERE drink_id = :id');
+		$query->execute(array($this->drink_id));
+	}
  
 	public function fillAttributesFromQuery($row) {
 		$drink = new Drink();
@@ -60,8 +75,8 @@ class Drink {
 		return $drink;
 	}
 
-	public static function countDrinks() {
-		$query = DB::connection()->prepare('SELECT count(*) FROM Drinks');
+	public function countDrinks() {
+		$query = DB::connection()->prepare('SELECT COUNT(*) FROM Drinks');
 		$query->execute();
 		$count = $query->fetchColumn();
 		return $count;
