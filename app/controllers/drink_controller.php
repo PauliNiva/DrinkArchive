@@ -29,7 +29,7 @@ class DrinkController extends BaseController {
     	$user = $user->findUserByLoginInfo($username, $password);
 
     	if ($user != null) {
-    		$_SESSION['logged_in'] = $user->getUser_id();
+    		$_SESSION['user'] = $user->getUser_id();
     		Redirect::to('/drink', array('message' => 'User has been logged in.'));
 		} else {
     		Redirect::to('/login', array('message' => 'No such user'));
