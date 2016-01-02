@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <br>
+    <form role="form" action"{{base_path}}/login" method="POST">
+    	<div class="form-group">
+            <div class="col-xs-4">
+        		Username: <input type="text" class="form-control" name="username"/>    
+        		Password: <input type="password" class="form-control" name="password"/>
+        		<input type="hidden" name="submitted" value="true">
+        		<button type="submit" class="btn btn-success">Login</button>
+        	</div>
+        </div>
+    </form>
+</div>
+{% endblock %}

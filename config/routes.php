@@ -13,6 +13,10 @@
   });
 
   $routes->get('/login', function() {
+    DrinkController::showLogin();
+  });
+
+  $routes->post('/login', function() {
     DrinkController::login();
   });
 

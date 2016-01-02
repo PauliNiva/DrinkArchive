@@ -56,6 +56,19 @@ class User {
 		$this->user_id = $row['user_id'];
 	}
 
+	public function findUserByLoginInfo($username, $password) {
+		$query = DB::connection()->prepare('SELECT * FROM Users WHERE username = :username
+			AND password = :password');
+		$query->execute(array($username, $password));
+		$row = $query->fetch(PDO::FETCH_OBJ);
+
+		if($row) {
+			return User::fillUserAttributesFromQuery($row);
+		} else {
+			return null;
+		}
+	}
+
 	public function getUser_id() {
 		return $this->user_id;
 	}

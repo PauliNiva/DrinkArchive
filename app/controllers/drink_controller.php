@@ -17,8 +17,23 @@ class DrinkController extends BaseController {
    	  View::make('/drink/register.html');
     }
 
-    public static function login(){
+    public static function showLogin(){
    	  View::make('/drink/login.html');
+    }
+
+    public static function login(){
+    	$username = $_POST["username"];
+    	$password = $_POST["password"];
+
+    	$user = new User();
+    	$user = $user->findUserByLoginInfo($username, $password);
+
+    	if ($user != null) {
+    		$_SESSION['logged_in'] = $user->getUser_id();
+    		Redirect::to('/drink', array('message' => 'User has been logged in.'));
+		} else {
+    		Redirect::to('/login', array('message' => 'No such user'));
+		}
     }
 
     public static function registerUser() {
