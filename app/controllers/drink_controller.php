@@ -8,6 +8,10 @@ require 'lib/utilities.php';
 
 class DrinkController extends BaseController {
 
+	public static function front(){
+   	  View::make('/drink/frontpage.html');
+    }
+
 	public static function index() {
 		$count = new Utilities();
 		$count->countDrinks();
