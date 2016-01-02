@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container"> 
+    <p>Fill the following fields carefully to register as a new user.</p>
+    <form role="form" action"{{base_path}}/register" method="POST">
+        <div class="col-xs-3">
+            <label>Username:</label> <input type="text" class="form-control" name="username" placeholder="Username">
+        <label>Password:</label> <input type="password" class="form-control" name="password" placeholder="Password"/>
+        <label>Repeat password:</label> <input type="password" class="form-control" name="password2" placeholder="repeated password"/>
+        <input type="hidden" name="submitted" value="true">
+        <br>
+        
+        <button type="submit" class="btn btn-success">Register</button>
+        <a href="index.php"><button type="button" class="btn btn-default">cancel</button></a>
+        </div>
+    </form>
+</div>
+{% endblock %}

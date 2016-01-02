@@ -4,6 +4,18 @@
     DrinkController::front();
   });
 
+  $routes->get('/register', function() {
+    DrinkController::registration();
+  });
+
+  $routes->post('/register', function() {
+    DrinkController::registerUser();
+  });
+
+  $routes->get('/login', function() {
+    DrinkController::login();
+  });
+
   $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
   });

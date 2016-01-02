@@ -38,13 +38,22 @@ class User {
 	public function fillUserAttributesFromQuery($row) {
 		$user = new User();
 
-		$user->setUser_id($row->user_id);
 		$user->setUsername($row->username);
 		$user->setPassword($row->password);
 		$user->setAdmin($row->admin);
 		$user->setLast_login($row->last_login);
 
 		return $user;
+	}
+
+	public function saveUser() {
+		$query = DB::connection()->prepare('INSERT INTO
+			Users(username, password, admin, last_login) VALUES
+			(:username, :password, :admin, :last_login) RETURNING user_id');
+		$query->execute(array($this->getUsername(), $this->getPassword(),
+			$this->getAdmin(), 'NOW()'));
+		$row = $query->fetch();
+		$this->user_id = $row['user_id'];
 	}
 
 	public function getUser_id() {
@@ -76,7 +85,11 @@ class User {
 	}
 
 	public function setAdmin($admin) {
-		$this->admin = $admin;
+		if ($admin == TRUE) {
+			$this->admin = 'TRUE';
+		} else {
+			$this->admin = 'FALSE';
+		}
 	}
 
 	public function getLast_login() {

@@ -4,6 +4,7 @@ require 'app/models/drink.php';
 require 'app/models/drink_ingredient.php';
 require 'app/models/drink_type.php';
 require 'app/models/ingredient.php';
+require 'app/models/user.php';
 require 'lib/utilities.php';
 
 class DrinkController extends BaseController {
@@ -11,6 +12,33 @@ class DrinkController extends BaseController {
 	public static function front(){
    	  View::make('/drink/frontpage.html');
     }
+
+    public static function registration(){
+   	  View::make('/drink/register.html');
+    }
+
+    public static function login(){
+   	  View::make('/drink/login.html');
+    }
+
+    public static function registerUser() {
+		$newUser = new User();
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		$password2 = $_POST['password2'];
+		$boo = FALSE;
+
+    	$newUser->setUsername($username);
+    	$newUser->setPassword($password);
+    	$newUser->setAdmin($boo);
+    	if ($password == $password2) {
+    		$newUser->saveUser();
+    	} else {
+    		// TODO throw errorRedirect::to('/drink', array('message' => 'Drink has been deleted.'));
+    	}
+
+    	Redirect::to('/', array('message' => 'User has been registered.'));
+  	}
 
 	public static function index() {
 		$count = new Utilities();
