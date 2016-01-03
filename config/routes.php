@@ -5,23 +5,23 @@
   });
 
   $routes->get('/register', function() {
-    DrinkController::registration();
+    UserController::registration();
   });
 
   $routes->post('/register', function() {
-    DrinkController::registerUser();
+    UserController::registerUser();
   });
 
   $routes->get('/login', function() {
-    DrinkController::showLogin();
+    UserController::showLogin();
   });
 
   $routes->post('/login', function() {
-    DrinkController::login();
+    UserController::login();
   });
 
   $routes->get('/logout', function(){
-    DrinkController::logout();
+    UserController::logout();
   });
 
   $routes->get('/hiekkalaatikko', function() {
