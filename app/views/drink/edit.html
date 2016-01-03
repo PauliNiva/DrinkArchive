@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+
+<div class="alert alert-success">
+  {{message}}
+</div>
+
   <h1>Edit drink</h1>
 
   <form role="form" action="{{base_path}}/drink/{{attributes.drink_id}}/edit?" method="POST">

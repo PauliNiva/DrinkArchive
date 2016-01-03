@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class="alert alert-success">
+  {{message}}
+</div>
+
 <div class="container"> 
     <p>Fill the following fields carefully to register as a new user.</p>
     <form role="form" action"{{base_path}}/register" method="POST">

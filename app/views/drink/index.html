@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class="alert alert-success">
+  {{message}}
+</div>
+
 <h1>List of drinks in the archive</h1>
   <p>Archive currently contains {{count.getDrinkCount()}} recipes</p>
 

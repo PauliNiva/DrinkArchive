@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+
+<div class="alert alert-success">
+  {{message}}
+</div>
+
 <div class="container">
     <br>
     <form role="form" action"{{base_path}}/login" method="POST">

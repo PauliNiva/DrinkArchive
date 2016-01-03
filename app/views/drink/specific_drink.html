@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+
+<div class="alert alert-success">
+  {{message}}
+</div>
+
   <h1>{{drink.drink_name}}</h1>
   <h3>Ingredients</h3>
   {% for drink_ingredient in drink_ingredients %}
