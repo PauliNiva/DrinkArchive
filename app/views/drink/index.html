@@ -19,7 +19,7 @@
       {% for drink in drinks %}
       <tr>
         <td><a href="{{base_path}}/drink/{{drink.drink_id}}">{{drink.drink_name}}</a></td>
-        <td>{{drink.adder_id}}</td>
+        <td>{{drink.getAdderName(drink.adder_id)}}</td>
         <td>{{drink.time_added}}</td>
         <th><a class="btn btn-default btn-sm" href="#">Add as Favorite</a></th>
       </tr>

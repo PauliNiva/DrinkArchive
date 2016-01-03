@@ -98,6 +98,13 @@ class Drink {
         }
     }
 
+    public function getAdderName() {
+    	$query = DB::connection()->prepare('SELECT username FROM Users WHERE user_id = :adder_id');
+		$query->execute(array($this->adder_id));
+		$user = $query->fetchObject();
+        return $user->username;
+    }
+
 	public function getDrink_id() {
 		return $this->drink_id;
 	}
