@@ -61,6 +61,17 @@ class DrinkIngredient {
        $this->name = $puuh->ingredient_name;
     }
 
+    public function validateAmount($amount) {
+    	$errors = array();
+  		if ($amount == '' || $amount == null){
+    		$errors[] = 'Amount cannot be empty!';
+  		}
+  		if (!is_numeric($amount)){
+    		$errors[] = 'Amount has to be a number';
+  		}
+  		return $errors;
+    }
+
 	public function getAmount() {
 		return $this->amount;
 	}

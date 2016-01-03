@@ -90,9 +90,27 @@ class DrinkController extends BaseController {
 		$newDrink = new Drink();
 		$name = $_POST['drink_name'];
 		$errors = Drink::validateDrink_name($name);
+
 		$ingredients = $_POST['ingredients'];
+		foreach ($ingredients as $ingredient) {
+			$ingredient_errors = Ingredient::validateIngredient_name($ingredient);      
+		}
+		if (count($ingredient_errors) > 0) {
+    		$drink_types = DrinkType::listDrinkTypes();
+  			View::make('drink/new.html', array('drink_types' => $drink_types, 'message' => $ingredient_errors[0]));
+  		}
+
 		$amounts = $_POST['amounts'];
+		foreach ($amounts as $amount) {
+    		$amount_errors = DrinkIngredient::validateAmount($amount);
+    	}
+    	if (count($amount_errors) > 0) {
+    		$drink_types = DrinkType::listDrinkTypes();
+  			View::make('drink/new.html', array('drink_types' => $drink_types, 'message' => $amount_errors[0]));
+  		}
+
     	$units = $_POST['units'];
+    	
     	if (count($errors) > 0) {
     		$drink_types = DrinkType::listDrinkTypes();
   			View::make('drink/new.html', array('drink_types' => $drink_types, 'message' => $errors[0]));
@@ -110,12 +128,7 @@ class DrinkController extends BaseController {
                 $ingredient_id = Ingredient::alreadyInArchive($ingredient);
             } else {
                 $newIngredient = new Ingredient();
-                $newIngredient->setIngredient_name($ingredient);
-                $ingredient_errors = Ingredient::validateIngredient_name($ingredient);
-                if (count($ingredient_errors) > 0) {
-    				$drink_types = DrinkType::listDrinkTypes();
-  					View::make('drink/new.html', array('drink_types' => $drink_types, 'message' => $ingredient_errors[0]));
-  				}
+                $newIngredient->setIngredient_name($ingredient);           
                 $ingredient_id = $newIngredient->save();
             }
 
