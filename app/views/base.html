@@ -41,7 +41,9 @@
             <!-- Navigaation linkit -->
             <li><a href="{{base_path}}">Front Page</a></li>
             <li><a href="{{base_path}}/drink">Drinks</a></li>
+            {% if user_logged_in %}
             <li><a href="{{base_path}}/addDrink">Add a Drink</a></li>
+            {% endif %}
             <li><a href="{{base_path}}/favorites">Favorites</a></li>
             <li><a href="{{base_path}}/search">Search</a></li>
           </ul>
