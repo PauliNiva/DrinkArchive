@@ -111,6 +111,11 @@ class DrinkController extends BaseController {
             } else {
                 $newIngredient = new Ingredient();
                 $newIngredient->setIngredient_name($ingredient);
+                $ingredient_errors = Ingredient::validateIngredient_name($ingredient);
+                if (count($ingredient_errors) > 0) {
+    				$drink_types = DrinkType::listDrinkTypes();
+  					View::make('drink/new.html', array('drink_types' => $drink_types, 'message' => $ingredient_errors[0]));
+  				}
                 $ingredient_id = $newIngredient->save();
             }
 

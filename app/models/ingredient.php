@@ -33,6 +33,17 @@ class Ingredient {
 		$query->execute(array($this->ingredient_name, $this->ingredient_id));
 	}
 
+	public function validateIngredient_name($name){
+  		$errors = array();
+  		if ($name == '' || $name == null){
+    		$errors[] = 'Ingredient name cannot be empty!';
+  		}
+  		if (strlen($name) < 3){
+    		$errors[] = 'Ingredient name must be atleast 3 symbols long!';
+  		}
+  		return $errors;
+	}
+
 	public function getIngredient_id() {
 		return $this->ingredient_id;
 	}
