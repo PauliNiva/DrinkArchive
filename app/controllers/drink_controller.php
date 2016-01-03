@@ -25,11 +25,10 @@ class DrinkController extends BaseController {
     	$username = $_POST["username"];
     	$password = $_POST["password"];
 
-    	$user = new User();
-    	$user = $user->findUserByLoginInfo($username, $password);
+    	$user = User::findUserByLoginInfo($username, $password);
 
-    	if ($user != null) {
-    		$_SESSION['user'] = $user->getUser_id();
+    	if ($user) {
+    		$_SESSION['user'] = $user->user_id;
     		Redirect::to('/drink', array('message' => 'User has been logged in.'));
 		} else {
     		Redirect::to('/login', array('message' => 'No such user'));
@@ -92,11 +91,38 @@ class DrinkController extends BaseController {
 		$ingredients = $_POST['ingredients'];
 		$amounts = $_POST['amounts'];
     	$units = $_POST['units'];
+    	$ingredient_ids = $_POST['ingredient_id'];
 
     	$modifiedDrink->setDrink_name($name);
     	$modifiedDrink->setDrink_type($_POST['drink_type']);
     	$modifiedDrink->setInstructions($_POST['instructions']);
     	$modifiedDrink->update();
+
+    	$i = 0;
+    	foreach ($ingredients as $ingredient) {
+    		$ingredient = strtolower($ingredient);
+            if (Ingredient::alreadyInArchive($ingredient) > 0) {
+            	$ingredient_id = Ingredient::alreadyInArchive($ingredient);
+            	$old_ingredient_id = $ingredient_ids[$i];
+            	$newDrinkIngredient = new DrinkIngredient();
+    			$newDrinkIngredient->setIngredient_id($ingredient_id);
+        		$newDrinkIngredient->setDrink_id($id);
+        		$newDrinkIngredient->setAmount($amounts[$i]);
+        		$newDrinkIngredient->setUnit($units[$i]);
+        		$newDrinkIngredient->update($old_ingredient_id);
+            } else {
+            	$newIngredient = new Ingredient();
+                $newIngredient->setIngredient_name($ingredient);
+                $ingredient_id = $newIngredient->save();
+            	$newDrinkIngredient = new DrinkIngredient();
+    			$newDrinkIngredient->setIngredient_id($ingredient_id);
+        		$newDrinkIngredient->setDrink_id($id);
+        		$newDrinkIngredient->setAmount($amounts[$i]);
+        		$newDrinkIngredient->setUnit($units[$i]);
+        		$newDrinkIngredient->update($ingredient_id);
+            }
+        	$i++;
+    	}
 
     	Redirect::to('/drink/' . $modifiedDrink->getDrink_id(), array('message' => 'Drink has been modified.'));
   	}
@@ -111,6 +137,7 @@ class DrinkController extends BaseController {
     	$newDrink->setDrink_name($name);
     	$newDrink->setDrink_type($_POST['drink_type']);
     	$newDrink->setInstructions($_POST['instructions']);
+    	$newDrink->setAdder_id($_SESSION['user']);
     	$newDrink->save();
 
     	$i = 0;

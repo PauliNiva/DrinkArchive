@@ -1,7 +1,7 @@
 <?php
 
 class User {
-	private $user_id, $username, $password, $admin, $last_login;
+	public $user_id, $username, $password, $admin, $last_login;
 
 	public function _construct($user_id, $username, $password, $admin, $last_login) {
 		$this->user_id = $user_id;
@@ -23,7 +23,7 @@ class User {
 		return $users;
 	}
 
-	public static function findOneUser($user_id) {
+	public function findOneUser($user_id) {
 		$query = DB::connection()->prepare('SELECT * FROM Users WHERE user_id = :user_id');
 		$query->execute(array($user_id));
 		$row = $query->fetch(PDO::FETCH_OBJ);
@@ -38,6 +38,7 @@ class User {
 	public function fillUserAttributesFromQuery($row) {
 		$user = new User();
 
+		$user->setUser_id($row->user_id);
 		$user->setUsername($row->username);
 		$user->setPassword($row->password);
 		$user->setAdmin($row->admin);
@@ -63,7 +64,8 @@ class User {
 		$row = $query->fetch(PDO::FETCH_OBJ);
 
 		if($row) {
-			return User::fillUserAttributesFromQuery($row);
+			$user = User::fillUserAttributesFromQuery($row);
+			return $user;
 		} else {
 			return null;
 		}

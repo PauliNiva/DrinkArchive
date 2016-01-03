@@ -40,6 +40,15 @@ class DrinkIngredient {
         	$this->getIngredient_id(), $this->getDrink_id()));        
     }
 
+
+    public function update($old_id) {
+		$query = DB::connection()->prepare('UPDATE DrinkIngredient SET
+			amount = ?, unit = ?, ingredient_id = ? WHERE ingredient_id = ?
+			AND drink_id = ?');
+		$query->execute(array($this->amount, $this->unit,
+			$this->ingredient_id, $old_id, $this->drink_id));
+	}
+
 	public function getIngredientName() {
 		return $this->name;
 	}
@@ -82,5 +91,13 @@ class DrinkIngredient {
 
 	public function setDrink_id($drink_id) {
 		$this->drink_id = $drink_id;
+	}
+
+	public function getName() {
+		return $this->name;
+	}
+
+	public function setName($name) {
+		$this->name = $name;
 	}
 }

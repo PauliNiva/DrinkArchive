@@ -27,6 +27,12 @@ class Ingredient {
         return $query->fetchColumn();
     }
 
+    public function update() {
+		$query = DB::connection()->prepare('UPDATE Ingredients SET
+			ingredenient_name = ? WHERE ingredient_id = ?');
+		$query->execute(array($this->ingredient_name, $this->ingredient_id));
+	}
+
 	public function getIngredient_id() {
 		return $this->ingredient_id;
 	}

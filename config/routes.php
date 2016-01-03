@@ -52,6 +52,6 @@
   DrinkController::edit($id);
   });
 
-  $routes->post('/drink/:id/edit', function($id){
+  $routes->post('/drink/:id/edit?', function($id){
   DrinkController::update($id);
   });
