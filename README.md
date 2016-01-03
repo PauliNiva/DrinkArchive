@@ -5,6 +5,7 @@ Yleisiä linkkejä:
 
 * [Linkki sovellukseeni] (http://pniva.users.cs.helsinki.fi/DrinkArchive/)
 * [Linkki dokumentaatiooni](https://github.com/PauliNiva/DrinkArchive/blob/master/doc/dokumentaatio.pdf)
+* Ohjaajalle tunnus ja salasana (kaksoispisteellä eroteltuna): ohjaaja:passu.
 
 ## Työn aihe
 
