@@ -20,6 +20,10 @@
     DrinkController::login();
   });
 
+  $routes->get('/logout', function(){
+    DrinkController::logout();
+  });
+
   $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
   });

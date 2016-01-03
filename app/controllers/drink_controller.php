@@ -35,6 +35,11 @@ class DrinkController extends BaseController {
 		}
     }
 
+    public static function logout(){
+    	$_SESSION['user'] = null;
+    	Redirect::to('/login', array('message' => 'You have been logged out'));
+    }
+
     public static function registerUser() {
 		$newUser = new User();
 		$username = $_POST['username'];

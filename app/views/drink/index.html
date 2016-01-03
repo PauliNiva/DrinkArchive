@@ -2,9 +2,6 @@
 {% block content %}
 
 <h1>List of drinks in the archive</h1>
-{% if user_logged_in %}
-    <h2>Käyttäjän {{user_logged_in.getUsername()}} pelikirjasto</h2>
-  {% endif %}
   <p>Archive currently contains {{count.getDrinkCount()}} recipes</p>
 
   <table class="table table-striped table-bordered">
