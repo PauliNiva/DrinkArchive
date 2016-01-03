@@ -89,10 +89,14 @@ class DrinkController extends BaseController {
 	public static function store() {
 		$newDrink = new Drink();
 		$name = $_POST['drink_name'];
+		$errors = Drink::validateDrink_name($name);
 		$ingredients = $_POST['ingredients'];
 		$amounts = $_POST['amounts'];
     	$units = $_POST['units'];
-
+    	if (count($errors) > 0) {
+    		$drink_types = DrinkType::listDrinkTypes();
+  			View::make('drink/new.html', array('drink_types' => $drink_types, 'message' => $errors[0]));
+  		}
     	$newDrink->setDrink_name($name);
     	$newDrink->setDrink_type($_POST['drink_type']);
     	$newDrink->setInstructions($_POST['instructions']);

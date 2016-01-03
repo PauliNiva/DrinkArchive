@@ -11,6 +11,7 @@ class Drink {
 		$this->time_added = $time_added;
 		$this->adder_id = $adder_id;
 		$this->drink_type = $drink_type;
+		$this->validators = array('validateDrink_name');
 	}
 
 	public static function findAll() {
@@ -71,6 +72,31 @@ class Drink {
 
 		return $drink;
 	}
+
+	public function validateDrink_name($name){
+  		$errors = array();
+  		if ($name == '' || $name == null){
+    		$errors[] = 'Drink name cannot be empty!';
+  		}
+  		if (strlen($name) < 3){
+    		$errors[] = 'Drink name must be atleast 3 symbols long!';
+  		}
+  		if (Drink::nameAlreadyExists($name)) {
+  			$errors[] = 'Drink name already exists!';
+  		}
+  		return $errors;
+	}
+
+	public static function nameAlreadyExists($drink_name) {
+		$query = DB::connection()->prepare('SELECT COUNT(*) FROM DRINKS WHERE drink_name = :drink_name');
+		$query->execute(array($drink_name));
+        $result = $query->fetchColumn();
+        if ($result > 0) {
+            return true;
+        } else {
+            return FALSE;
+        }
+    }
 
 	public function getDrink_id() {
 		return $this->drink_id;

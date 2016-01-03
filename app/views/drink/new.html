@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+
+<div class="alert alert-success">
+  {{message}}
+</div>
+
 <h1>Add drink to archive</h1>
     <p>Fill the following fields carefully to add a new drink.</p>
     <form role="form" action"{{base_path}}/addDrink" method="POST">
