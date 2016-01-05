@@ -59,3 +59,7 @@
   $routes->post('/drink/:id/edit?', function($id){
   DrinkController::update($id);
   });
+
+  $routes->get('/search', function() {
+    DrinkController::showSearchPage();
+  });

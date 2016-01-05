@@ -143,4 +143,8 @@ class DrinkController extends BaseController {
 
     	Redirect::to('/drink/' . $newDrink->getDrink_id(), array('message' => 'Drink has been archived.'));
   	}
+
+  	public static function showSearchPage(){
+   	  View::make('/drink/search.html');
+    }
 }
