@@ -66,6 +66,10 @@ class UserController extends BaseController {
 
     public static function addFav($drink) {
     	$user = $_SESSION['user'];
+    	$errors = Drink::validateFavoriteDoesntExist($user, $drink);
+    	if (count($errors) > 0) {
+    		Redirect::to('/drink', array('message' => $errors[0]));
+  		}
     	Drink::addFavorite($user, $drink);
 		Redirect::to('/drink', array('message' => 'Favorite has been added.'));
     }

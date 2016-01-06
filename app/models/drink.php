@@ -128,6 +128,26 @@ class Drink {
   		return $errors;
 	}
 
+	public function validateFavoriteDoesntExist($user, $drink) {
+		$errors = array();
+		if (Drink::AlreadyFavorite($user, $drink)) {
+			$errors[] = 'Drink is already a favorite of yours!';
+		}
+		return $errors;
+	}
+
+	public static function AlreadyFavorite($user, $drink) {
+		$query = DB::connection()->prepare('SELECT COUNT(*) FROM Favorites
+			WHERE user_id = :user AND drink_id = :drink');
+		$query->execute(array($user, $drink));
+        $result = $query->fetchColumn();
+        if ($result > 0) {
+            return true;
+        } else {
+            return FALSE;
+        }
+    }
+
 	public static function nameAlreadyExists($drink_name) {
 		$query = DB::connection()->prepare('SELECT COUNT(*) FROM DRINKS WHERE drink_name = :drink_name');
 		$query->execute(array($drink_name));
