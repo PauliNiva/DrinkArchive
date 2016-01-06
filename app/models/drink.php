@@ -108,6 +108,12 @@ class Drink {
 		$query->execute(array($user, $drink));
 	}
 
+	public function addFavorite($user, $drink) {
+		$query = DB::connection()->prepare('INSERT INTO Favorites(user_id, drink_id)
+			VALUES(:user, :drink)');
+		$query->execute(array($user, $drink));
+	} 
+
 	public function validateDrink_name($name){
   		$errors = array();
   		if ($name == '' || $name == null){

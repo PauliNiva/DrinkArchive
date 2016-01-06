@@ -71,3 +71,7 @@
   $routes->post('/favorites/:id/destroy', function($id){
   UserController::removeFav($id);
   });
+
+  $routes->post('/drink/:id/favorite', function($id){
+  UserController::addFav($id);
+  });
