@@ -47,10 +47,39 @@ class DrinkController extends BaseController {
 	public static function update($id) {
 		$modifiedDrink = Drink::findOne($id);
 		$name = $_POST['drink_name'];
+		$errors = Drink::validateEditedDrink_name($name);
 		$ingredients = $_POST['ingredients'];
+		foreach ($ingredients as $ingredient) {
+			$ingredient_errors = Ingredient::validateIngredient_name($ingredient);      
+		}
+		if (count($ingredient_errors) > 0) {
+			$drink = Drink::findOne($id);
+			$drink_types = DrinkType::listDrinkTypes();
+			$drink_ingredients = DrinkIngredient::listDrinkIngredients($id);
+			View::make('drink/edit.html', array('attributes' => $drink, 'drink_types' => $drink_types,
+				'drink_ingredients' => $drink_ingredients, 'message' => $ingredient_errors[0]));
+  		}
 		$amounts = $_POST['amounts'];
+		foreach ($amounts as $amount) {
+    		$amount_errors = DrinkIngredient::validateAmount($amount);
+    	}
+    	if (count($amount_errors) > 0) {
+    		$drink = Drink::findOne($id);
+			$drink_types = DrinkType::listDrinkTypes();
+			$drink_ingredients = DrinkIngredient::listDrinkIngredients($id);
+			View::make('drink/edit.html', array('attributes' => $drink, 'drink_types' => $drink_types,
+				'drink_ingredients' => $drink_ingredients, 'message' => $amount_errors[0]));
+  		}
     	$units = $_POST['units'];
     	$ingredient_ids = $_POST['ingredient_id'];
+
+    	if (count($errors) > 0) {
+    		$drink = Drink::findOne($id);
+			$drink_types = DrinkType::listDrinkTypes();
+			$drink_ingredients = DrinkIngredient::listDrinkIngredients($id);
+			View::make('drink/edit.html', array('attributes' => $drink, 'drink_types' => $drink_types,
+				'drink_ingredients' => $drink_ingredients, 'message' => $errors[0]));
+  		}
 
     	$modifiedDrink->setDrink_name($name);
     	$modifiedDrink->setDrink_type($_POST['drink_type']);

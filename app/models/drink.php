@@ -128,6 +128,17 @@ class Drink {
   		return $errors;
 	}
 
+	public function validateEditedDrink_name($name){
+  		$errors = array();
+  		if ($name == '' || $name == null){
+    		$errors[] = 'Drink name cannot be empty!';
+  		}
+  		if (strlen($name) < 3){
+    		$errors[] = 'Drink name must be atleast 3 symbols long!';
+  		}
+  		return $errors;
+	}
+
 	public function validateFavoriteDoesntExist($user, $drink) {
 		$errors = array();
 		if (Drink::AlreadyFavorite($user, $drink)) {
