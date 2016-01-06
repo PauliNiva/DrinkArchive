@@ -85,6 +85,23 @@ class Drink {
 		return $drinks;
 	}
 
+	public function getFavorites($user) {
+		$query = DB::connection()->prepare('SELECT Favorites.drink_id, Drinks.drink_name
+			FROM Favorites INNER JOIN Drinks ON Favorites.drink_id = Drinks.drink_id
+			WHERE user_id = :user');
+		$query->execute(array($user));
+		$rows = $query->fetchAll(PDO::FETCH_OBJ);
+		$drinks = array();
+
+		foreach ($rows as $row) {
+			$drink = new Drink();
+			$drink->setDrink_id($row->drink_id);
+			$drink->setDrink_name($row->drink_name);
+			$drinks[] = $drink;
+		}
+		return $drinks;
+	}
+
 	public function validateDrink_name($name){
   		$errors = array();
   		if ($name == '' || $name == null){

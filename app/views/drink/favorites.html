@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Your favorite drinks</h1>
+
+    <div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for favorite in favorites %}
+                <tr>
+                    <td><a href="{{base_path}}/drink/{{drink.drink_id}}">{{favorite.drink_name}}</a></td>
+                    <th><button class="btn btn-danger">Delete from favorites</button></th>
+                </tr>                        
+            {% endfor %}
+        </tbody>             
+    </table>
+</div>
+{% endblock %}

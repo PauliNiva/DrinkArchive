@@ -1,6 +1,7 @@
 <?php
 
 require 'app/models/user.php';
+require 'app/models/drink.php';
 require 'lib/utilities.php';
 
 class UserController extends BaseController {
@@ -50,4 +51,10 @@ class UserController extends BaseController {
 
     	Redirect::to('/', array('message' => 'User has been registered.'));
   	}
+
+  	public static function showFavorites() {
+  		$user = $_SESSION['user'];
+  		$favorites = Drink::getFavorites($user);
+   	  	View::make('/drink/favorites.html', array('favorites' => $favorites));
+    }
 }

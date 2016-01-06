@@ -29,7 +29,7 @@
   });
 
   $routes->get('/favorites', function() {
-    HelloWorldController::favorites();
+    UserController::showFavorites();
   });
 
   $routes->get('/drink', function() {
