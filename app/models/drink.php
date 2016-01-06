@@ -102,6 +102,12 @@ class Drink {
 		return $drinks;
 	}
 
+	public function removeFavorite($user, $drink) {
+		$query = DB::connection()->prepare('DELETE FROM Favorites
+			WHERE user_id = ? AND drink_id = ?');
+		$query->execute(array($user, $drink));
+	}
+
 	public function validateDrink_name($name){
   		$errors = array();
   		if ($name == '' || $name == null){

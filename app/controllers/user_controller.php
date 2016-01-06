@@ -57,4 +57,10 @@ class UserController extends BaseController {
   		$favorites = Drink::getFavorites($user);
    	  	View::make('/drink/favorites.html', array('favorites' => $favorites));
     }
+
+    public static function removeFav($drink) {
+    	$user = $_SESSION['user'];
+    	Drink::removeFavorite($user, $drink);
+		Redirect::to('/favorites', array('message' => 'Favorite has been deleted.'));
+    }
 }

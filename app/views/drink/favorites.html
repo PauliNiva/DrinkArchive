@@ -12,8 +12,10 @@
         <tbody>
             {% for favorite in favorites %}
                 <tr>
-                    <td><a href="{{base_path}}/drink/{{drink.drink_id}}">{{favorite.drink_name}}</a></td>
-                    <th><button class="btn btn-danger">Delete from favorites</button></th>
+                    <td><a href="{{base_path}}/drink/{{favorite.drink_id}}">{{favorite.drink_name}}</a></td>
+                    <form method="post" action="{{base_path}}/favorites/{{favorite.drink_id}}/destroy" style="display: inline-block;">
+                    <th><button type="submit" class="btn btn-danger">Delete from favorites</button></th>
+                    </form>
                 </tr>                        
             {% endfor %}
         </tbody>             

@@ -67,3 +67,7 @@
   $routes->post('/search', function() {
     DrinkController::showSearchResults();
   });
+
+  $routes->post('/favorites/:id/destroy', function($id){
+  UserController::removeFav($id);
+  });
