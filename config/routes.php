@@ -63,3 +63,7 @@
   $routes->get('/search', function() {
     DrinkController::showSearchPage();
   });
+
+  $routes->post('/search', function() {
+    DrinkController::showSearchResults();
+  });

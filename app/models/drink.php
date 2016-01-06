@@ -73,6 +73,18 @@ class Drink {
 		return $drink;
 	}
 
+	public static function search($search_word) {
+		$query = DB::connection()->prepare('SELECT * FROM Drinks WHERE drink_name LIKE :search_word');
+		$query->execute(array("%$search_word%"));
+		$rows = $query->fetchAll(PDO::FETCH_OBJ);
+		$drinks = array();
+
+		foreach ($rows as $row) {
+			$drinks[] = Drink::fillAttributesFromQuery($row);
+		}
+		return $drinks;
+	}
+
 	public function validateDrink_name($name){
   		$errors = array();
   		if ($name == '' || $name == null){
