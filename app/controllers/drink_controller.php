@@ -117,33 +117,40 @@ class DrinkController extends BaseController {
 
 	public static function store() {
 		$newDrink = new Drink();
+		$mockDrink = new Drink();
+		$drink_types = DrinkType::listDrinkTypes();
 		$name = $_POST['drink_name'];
-		$errors = Drink::validateDrink_name($name);
-
 		$ingredients = $_POST['ingredients'];
+		$amounts = $_POST['amounts'];
+		$units = $_POST['units'];
+		$mockDrink->setDrink_name($name);
+    	$mockDrink->setDrink_type($_POST['drink_type']);
+    	$mockDrink->setInstructions($_POST['instructions']);
+
+		$errors = Drink::validateDrink_name($name);
+		if (count($errors) > 0) {	
+  			View::make('drink/new.html', array('drink_types' => $drink_types,
+  				'mockDrink' => $mockDrink, 'message' => $errors[0]));
+  		}
+
 		foreach ($ingredients as $ingredient) {
 			$ingredient_errors = Ingredient::validateIngredient_name($ingredient);      
 		}
-		if (count($ingredient_errors) > 0) {
-    		$drink_types = DrinkType::listDrinkTypes();
-  			View::make('drink/new.html', array('drink_types' => $drink_types, 'message' => $ingredient_errors[0]));
-  		}
 
-		$amounts = $_POST['amounts'];
+		if (count($ingredient_errors) > 0) {
+  			View::make('drink/new.html', array('drink_types' => $drink_types,
+  				'mockDrink' => $mockDrink, 'message' => $ingredient_errors[0]));
+  		}
+		
 		foreach ($amounts as $amount) {
     		$amount_errors = DrinkIngredient::validateAmount($amount);
     	}
-    	if (count($amount_errors) > 0) {
-    		$drink_types = DrinkType::listDrinkTypes();
-  			View::make('drink/new.html', array('drink_types' => $drink_types, 'message' => $amount_errors[0]));
-  		}
 
-    	$units = $_POST['units'];
-    	
-    	if (count($errors) > 0) {
-    		$drink_types = DrinkType::listDrinkTypes();
-  			View::make('drink/new.html', array('drink_types' => $drink_types, 'message' => $errors[0]));
+    	if (count($amount_errors) > 0) {
+  			View::make('drink/new.html', array('drink_types' => $drink_types,
+  				'mockDrink' => $mockDrink, 'message' => $amount_errors[0]));
   		}
+    	
     	$newDrink->setDrink_name($name);
     	$newDrink->setDrink_type($_POST['drink_type']);
     	$newDrink->setInstructions($_POST['instructions']);
