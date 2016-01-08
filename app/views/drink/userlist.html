@@ -20,8 +20,6 @@
       {% for user in users %}
       <tr>
         <td><a href="{{base_path}}/user/{{user.user_id}}">{{user.username}}</a></td>
-        <td>{{user.getAdmin()}}</td>
-        <td>{{user.getLast_login()}}</td>
       </tr>
       {% endfor %}
     </tbody>
