@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="alert alert-success">
+  {{message}}
+</div>
+
+  <h1>{{user.username}}</h1>
+  <p>It is {{user.getAdmin()}} that this user is admin</p>
+  <p>{{user.username}} was last seen {{user.getLast_login()}}</p>
+  <h3>Drinks that this user has added:</h3>
+  {% for drink in drinks %}
+      <tr>
+        <td><a href="{{base_path}}/drink/{{drink.drink_id}}">{{drink.drink_name}}</a></td>
+        <td>{{drink.time_added}}</td>
+      </tr>
+      {% endfor %}
+
+  <form method="post" action="{{base_path}}/users/{{user.user_id}}/destroy" style="display: inline-block;">
+    <button type="submit" class="btn btn-danger">Delete user</button>
+  </form>
+  <form method="get" action="{{base_path}}/users/{{user.user_id}}/edit" style="display: inline-block;">
+    <button type="submit" class="btn btn-primary">Edit user</button>
+  </form>
+{% endblock %}

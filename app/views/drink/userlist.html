@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="alert alert-success">
+  {{message}}
+</div>
+
+<h1>List of archive users</h1>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Userame</th>
+        
+      </tr>
+    </thead>
+
+    <tbody>
+
+      {% for user in users %}
+      <tr>
+        <td><a href="{{base_path}}/user/{{user.user_id}}">{{user.username}}</a></td>
+        <td>{{user.getAdmin()}}</td>
+        <td>{{user.getLast_login()}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

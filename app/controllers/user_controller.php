@@ -73,4 +73,14 @@ class UserController extends BaseController {
     	Drink::addFavorite($user, $drink);
 		Redirect::to('/drink', array('message' => 'Favorite has been added.'));
     }
+
+    public static function showUsers() {
+    	$users = User::findAllUsers();
+		View::make('drink/userlist.html', array('users' => $users));
+    }
+
+    public static function showUser($id) {
+		$user = User::findOneUser($id);
+		View::make('drink/specific_user.html', array('user' => $user));
+	}
 }

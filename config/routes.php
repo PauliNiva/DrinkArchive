@@ -24,6 +24,14 @@
     UserController::logout();
   });
 
+  $routes->get('/users', function() {
+    UserController::showUsers();
+  });
+
+   $routes->get('/user/:id', function($id) {
+    UserController::showUser($id);
+  });
+
   $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
   });
