@@ -38,6 +38,21 @@ class Drink {
 		}
 	}
 
+	public static function findUsersDrinks($user_id) {
+		$query = DB::connection()->prepare('SELECT * FROM Drinks WHERE adder_id = :user_id');
+		$query->execute(array($user_id));
+		$rows = $query->fetchAll(PDO::FETCH_OBJ);
+
+		if($rows) {
+			foreach ($rows as $row) {
+			$drinks[] = Drink::fillAttributesFromQuery($row);
+		}
+		return $drinks;
+		} else {
+			return null;
+		}
+	}
+
 	public function save() {
 		$query = DB::connection()->prepare('INSERT INTO
 			Drinks(drink_name, instructions, time_added, adder_id, drink_type) VALUES

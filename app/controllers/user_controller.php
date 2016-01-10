@@ -39,14 +39,23 @@ class UserController extends BaseController {
 		$password = $_POST['password'];
 		$password2 = $_POST['password2'];
 		$boo = FALSE;
+		$errors = User::validateUsername($username);
+		if (count($errors) > 0) {	
+  			View::make('/drink/register.html', array('message' => $errors[0]));
+  		}
+  		$errors = User::validatePassword($password);
+		if (count($errors) > 0) {	
+  			View::make('/drink/register.html', array('username' => $username, 'message' => $errors[0]));
+  		}
 
     	$newUser->setUsername($username);
     	$newUser->setPassword($password);
     	$newUser->setAdmin($boo);
     	if ($password == $password2) {
     		$newUser->saveUser();
+    		$_SESSION['user'] = $newUser->user_id;
     	} else {
-    		// TODO throw errorRedirect::to('/drink', array('message' => 'Drink has been deleted.'));
+    		Redirect::to('/register', array('username' => $username, 'message' => 'Passwords do not match.'));
     	}
 
     	Redirect::to('/', array('message' => 'User has been registered.'));
@@ -80,7 +89,33 @@ class UserController extends BaseController {
     }
 
     public static function showUser($id) {
+    	$drinks = Drink::findUsersDrinks($id);
 		$user = User::findOneUser($id);
-		View::make('drink/specific_user.html', array('user' => $user));
+		$admin = $user->getAdmin();
+		View::make('drink/specific_user.html', array('user' => $user, 'drinks' => $drinks, 'admin' => $admin));
+	}
+
+	public static function destroyUser($id) {
+		$user = User::findOneUser($id);
+		$user->destroyUser();
+		Redirect::to('/users', array('message' => 'User has been deleted.'));
+	}
+
+	public static function editUser($id) {
+		$drinks = Drink::findUsersDrinks($id);
+		$user = User::findOneUser($id);
+		$admin = $user->getAdmin();
+		View::make('drink/edit_user.html', array('user' => $user, 'drinks' => $drinks, 'admin' => $admin));
+	}
+
+	public static function updateUser($id) {
+		$user = User::findOneUser($id);
+		if ($user->getAdmin() == TRUE) {
+			Redirect::to('/users', array('message' => 'Admin rights cannot be revoked.'));
+		} else {
+			$user->makeAdmin();
+			$user->updateUser($id);
+			Redirect::to('/users', array('message' => 'Chosen user has been promoted to an admin status.'));
+		}
 	}
 }

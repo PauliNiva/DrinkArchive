@@ -25,7 +25,11 @@
       {% for drink in drinks %}
       <tr>
         <td><a href="{{base_path}}/drink/{{drink.drink_id}}">{{drink.drink_name}}</a></td>
+        {% if drink.adder_id %}
         <td>{{drink.getAdderName(drink.adder_id)}}</td>
+        {% else %}
+        <td></td>
+        {% endif %}
         <td>{{drink.time_added}}</td>
         {% if user_logged_in %}
         <form method="post" action="{{base_path}}/drink/{{drink.drink_id}}/favorite" style="display: inline-block;">

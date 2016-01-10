@@ -28,8 +28,20 @@
     UserController::showUsers();
   });
 
-   $routes->get('/user/:id', function($id) {
+  $routes->get('/user/:id', function($id) {
     UserController::showUser($id);
+  });
+
+  $routes->post('/users/:id/destroy', function($id){
+    UserController::destroyUser($id);
+  });
+
+  $routes->get('/users/:id/edit', function($id){
+    UserController::editUser($id);
+  });
+
+  $routes->post('/users/:id/edit?', function($id){
+    UserController::updateUser($id);
   });
 
   $routes->get('/hiekkalaatikko', function() {

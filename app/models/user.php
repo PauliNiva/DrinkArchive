@@ -1,6 +1,7 @@
 <?php
 
 class User {
+
 	public $user_id, $username, $password, $admin, $last_login;
 
 	public function _construct($user_id, $username, $password, $admin, $last_login) {
@@ -50,9 +51,9 @@ class User {
 	public function saveUser() {
 		$query = DB::connection()->prepare('INSERT INTO
 			Users(username, password, admin, last_login) VALUES
-			(:username, :password, :admin, :last_login) RETURNING user_id');
+			(?, ?, ?, ?) RETURNING user_id');
 		$query->execute(array($this->getUsername(), $this->getPassword(),
-			$this->getAdmin(), 'NOW()'));
+			'FALSE', 'NOW()'));
 		$row = $query->fetch();
 		$this->user_id = $row['user_id'];
 	}
@@ -70,6 +71,54 @@ class User {
 			return null;
 		}
 	}
+
+	public function destroyUser() {
+		$query = DB::connection()->prepare('DELETE FROM Users WHERE user_id = ?');
+		$query->execute(array($this->user_id));
+	}
+
+	public function updateUser() {
+		$query = DB::connection()->prepare('UPDATE Users SET
+			username = ?, password = ?, admin = ?, last_login = ? WHERE user_id = ?');
+		$query->execute(array($this->username, $this->password,
+			$this->admin, $this->last_login, $this->user_id));
+	}
+
+	public function validateUsername($name){
+  		$errors = array();
+  		if ($name == '' || $name == null){
+    		$errors[] = 'Username cannot be empty!';
+  		}
+  		if (strlen($name) < 3){
+    		$errors[] = 'Username must be atleast 3 symbols long!';
+  		}
+  		if (User::nameAlreadyExists($name)) {
+  			$errors[] = 'Username already exists!';
+  		}
+  		return $errors;
+	}
+
+	public function validatePassword($password){
+  		$errors = array();
+  		if ($password == '' || $password == null){
+    		$errors[] = 'Password cannot be empty!';
+  		}
+  		if (strlen($password) < 3){
+    		$errors[] = 'Password must be atleast 3 symbols long!';
+  		}
+  		return $errors;
+	}
+
+	public static function nameAlreadyExists($username) {
+		$query = DB::connection()->prepare('SELECT COUNT(*) FROM Users WHERE username = :username');
+		$query->execute(array($username));
+        $result = $query->fetchColumn();
+        if ($result > 0) {
+            return true;
+        } else {
+            return FALSE;
+        }
+    }
 
 	public function getUser_id() {
 		return $this->user_id;
@@ -101,10 +150,14 @@ class User {
 
 	public function setAdmin($admin) {
 		if ($admin == TRUE) {
-			$this->admin = 'TRUE';
+			$this->admin = TRUE;
 		} else {
-			$this->admin = 'FALSE';
+			$this->admin = FALSE;
 		}
+	}
+
+	public function makeAdmin() {
+		$this->admin = TRUE;
 	}
 
 	public function getLast_login() {

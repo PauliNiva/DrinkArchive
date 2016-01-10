@@ -14,10 +14,12 @@
 {% endfor %}
   <h3>Preparation</h3>
   <p>{{drink.instructions}}</p>
+  {% if user_logged_in_admin %}
   <form method="post" action="{{base_path}}/drink/{{drink.drink_id}}/destroy" style="display: inline-block;">
     <button type="submit" class="btn btn-danger">Delete drink</button>
   </form>
   <form method="get" action="{{base_path}}/drink/{{drink.drink_id}}/edit" style="display: inline-block;">
     <button type="submit" class="btn btn-primary">Edit drink</button>
   </form>
+  {% endif %}
 {% endblock %}
