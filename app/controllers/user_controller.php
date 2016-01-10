@@ -7,11 +7,11 @@ require 'lib/utilities.php';
 class UserController extends BaseController {
 
 	public static function registration(){
-   	  View::make('/drink/register.html');
+   	  View::make('/user/register.html');
     }
 
     public static function showLogin(){
-   	  View::make('/drink/login.html');
+   	  View::make('/user/login.html');
     }
 
     public static function login(){
@@ -24,13 +24,13 @@ class UserController extends BaseController {
     		$_SESSION['user'] = $user->user_id;
     		Redirect::to('/drink', array('message' => 'User has been logged in.'));
 		} else {
-    		Redirect::to('/login', array('message' => 'No such user'));
+    		Redirect::to('/login', array('message' => 'No such user or incorrect password'));
 		}
     }
 
     public static function logout(){
     	$_SESSION['user'] = null;
-    	Redirect::to('/login', array('message' => 'You have been logged out'));
+    	Redirect::to('/', array('message' => 'You have been logged out'));
     }
 
     public static function registerUser() {
@@ -41,11 +41,11 @@ class UserController extends BaseController {
 		$boo = FALSE;
 		$errors = User::validateUsername($username);
 		if (count($errors) > 0) {	
-  			View::make('/drink/register.html', array('message' => $errors[0]));
+  			View::make('/user/register.html', array('message' => $errors[0]));
   		}
   		$errors = User::validatePassword($password);
 		if (count($errors) > 0) {	
-  			View::make('/drink/register.html', array('username' => $username, 'message' => $errors[0]));
+  			View::make('/user/register.html', array('username' => $username, 'message' => $errors[0]));
   		}
 
     	$newUser->setUsername($username);
@@ -64,7 +64,7 @@ class UserController extends BaseController {
   	public static function showFavorites() {
   		$user = $_SESSION['user'];
   		$favorites = Drink::getFavorites($user);
-   	  	View::make('/drink/favorites.html', array('favorites' => $favorites));
+   	  	View::make('/user/favorites.html', array('favorites' => $favorites));
     }
 
     public static function removeFav($drink) {
@@ -85,14 +85,14 @@ class UserController extends BaseController {
 
     public static function showUsers() {
     	$users = User::findAllUsers();
-		View::make('drink/userlist.html', array('users' => $users));
+		View::make('user/userlist.html', array('users' => $users));
     }
 
     public static function showUser($id) {
     	$drinks = Drink::findUsersDrinks($id);
 		$user = User::findOneUser($id);
 		$admin = $user->getAdmin();
-		View::make('drink/specific_user.html', array('user' => $user, 'drinks' => $drinks, 'admin' => $admin));
+		View::make('user/specific_user.html', array('user' => $user, 'drinks' => $drinks, 'admin' => $admin));
 	}
 
 	public static function destroyUser($id) {
@@ -105,7 +105,7 @@ class UserController extends BaseController {
 		$drinks = Drink::findUsersDrinks($id);
 		$user = User::findOneUser($id);
 		$admin = $user->getAdmin();
-		View::make('drink/edit_user.html', array('user' => $user, 'drinks' => $drinks, 'admin' => $admin));
+		View::make('user/edit_user.html', array('user' => $user, 'drinks' => $drinks, 'admin' => $admin));
 	}
 
 	public static function updateUser($id) {
